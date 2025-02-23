@@ -1,0 +1,81 @@
+<% layout('boilerplate/commonContent') %>
+    <nav id="mainNav" class="navbar mb-2 navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand mx-2" href="/"><i class="fa fa-globe"></i>  NewsBin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/postArticle">Post</a>
+                    <a class="nav-link" href="/articles">Articles</a>
+                </div>
+                <div class="navbar-nav" style="margin-left: auto;padding-right: 13px;">
+                     <a class="nav-link" href="/profile"><i class="fa fa-user" style="font-size:25px"></i></a>
+                     <a class="nav-link" href="/logOut">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container py-2">
+        <div class="row">
+            
+            <div class="col-1">
+
+            </div>
+            <div class="col-12 col-sm-12 col-md-10">
+               
+                <% if(favourites.length==0){ %>
+                    <h2 class="text-center" style="font-family: 'Nunito', sans-serif;color: white;">No Favoutrite Articles</h2>
+                    <% } else { %> 
+                        <form class="row ValidForm"  novalidate method="POST" action="/articles/findBySearhTerm" autocomplete="off">
+                            <div class="input-group mb-2">
+                                <input type="text" name="searchTerm" id="searchTerm" class="form-control" placeholder="search articles by author/title" required>
+                                <button class="btn btn-success" type="submit" id="searchBtn">Search</button>
+                            </div>   
+                          </form>
+                <% for(let i=0;i<favourites.length;i++) { %>
+                    <div class="card mb-2 bg-info">
+                        <div class="row g-0">
+                          <div class="col-md-4">
+                            <img src="<%= favourites[i].image %>" style="height:100%;width:100%" class="img-fluid rounded-start" alt="...">
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                                
+                            <h2 style="font-family:'Nunito', sans-serif;" class="card-title text-dark"><%= favourites[i].title %>   
+                            </h2>
+                               <h6 class="card-title"> <span class="badge bg-dark text-light "><%= favourites[i].uploadDate %> </span></h6>
+                              <p class="card-text text-dark" style="font-family: 'Nunito', sans-serif;"><%= result[i] %> </p>
+                              <div class="mt-4 mb-0" >
+                                  <a class="btn btn-dark px-4" style="font-family: 'Nunito', sans-serif;"  href="/articles/<%= favourites[i]._id %>">Read More</a>
+                                  <% if(user.Username == favourites[i].owner) {%>
+                                    <a  class="btn btn-danger px-4"  style="font-family: 'Nunito', sans-serif; "  href="/profile"><i class="fa  fa-user"></i>  Author  </a>
+                                    <% } else{ %> 
+                                        <a  class="btn btn-danger px-4"  style="font-family: 'Nunito', sans-serif; "  href="/profile/<%= favourites[i].owner %>"><i class="fa fa-user"></i>  Author </a>
+                                        <% } %>
+                                                                                  
+                                            <a id="likes" type='button' class="btn btn-success px-4 position-relative" href="/articles/addToFavourites/<%= favourites[i]._id %>/<%= user.Username %>">
+                                            Likes 
+                                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                            <%= favourites[i].likes.length %> 
+                                                            <span class="visually-hidden">unread messages</span>
+                                                    </span>
+                                            </a>                     
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <% } %>  
+                    <% } %> 
+            </div>
+            <div class="col-1">
+
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <% if(title == 'NewsBin home page') { %>
+      <style>
+        #outer::after{
+           content:"";
+           background: url(https://images.unsplash.com/photo-1505682634904-d7c8d95cdc50?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);
+           background-size:cover;
+           background-repeat: no-repeat;
+           background-position: center;
+           filter:blur(1px);
+           -webkit-filter: blur(1px);
+           top:0;
+           bottom:0;
+           left:0;
+           right:0;
+           position: absolute;
+           z-index: -1;
+            }
+            .navbar {
+               font-family: 'Nunito', sans-serif;
+   
+           }
+            #outer{
+                display: flex;
+                justify-content: center;
+                margin-top: 190px;
+            }
+            #mainnav .nav-link{
+               font-size: 20px;
+               color:white;
+           }
+       #mainnav .nav-link:hover{
+           text-decoration: underline;
+       }
+       p{
+         color: white;
+         font-size:16px;
+         font-family: 'Nunito', sans-serif;
+       }
+       #outer h1{
+         color: white;
+         font-size: 45px;
+         font-family: 'Nunito', sans-serif;
+       }
+       span{
+         color: cyan;
+       }
+       #outer section{
+         width: 650px; height: 150px;
+       }
+       
+       #mainnav .navbar {
+               font-family: 'Nunito', sans-serif;
+   
+           }
+           @media(max-width:576px){
+              p{
+               font-size: 14px;
+             }
+             #outer h1{
+               font-size: 32px;
+             }
+             #outer section{
+               width:450px;
+             }
+           }
+       </style>
+           
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat&family=Eczar&family=Josefin+Slab:wght@600&family=Nunito&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <% } else if(title.startsWith("Read Article - ")) { %>
+      <%- include('../partials/starability') %>
+    <% } else { %>
+      <style>
+        #mainNav .navbar-brand {
+            font-size: 30px;
+            color: cyan;
+        }
+
+        #mainNav .nav-link {
+            font-size: 20px;
+            color:white;
+            transition: 0.4s ease-in-out;
+        }
+
+        .navbar {
+            font-family: 'Nunito', sans-serif;
+
+        }
+
+       input[type="text"], input[type="email"], input[type="password"]{
+           box-shadow: 3px 2px 2px rgb(183, 180, 180);
+       }
+       textarea{
+        box-shadow: 3px 2px 2px rgb(183, 180, 180);
+       }
+        #mainNav .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        h3 {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        label {
+            font-family: 'Nunito', sans-serif;
+            text-shadow: 0.5px 0px 1px rgb(167, 163, 163)
+        }
+       
+        body{
+            background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('https://cdn.pixabay.com/photo/2016/02/01/00/56/news-1172463__480.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .card-body{
+            background-color: #b6d4e3;
+        }
+
+        #content{
+          width:100%;
+          height:126px;
+          overflow-y: auto;
+          overflow-x: hidden;  
+        }
+
+        #parent{
+          overflow: hidden;
+        }
+
+        #ReviewDisplay{
+          width:100%;
+          height:468px;
+          overflow-y:scroll;
+          padding-right: 24px;
+          padding-left: 7px;
+          box-sizing: content-box;        
+        }        
+    </style>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Caveat&family=Eczar&family=Josefin+Slab:wght@600&family=Nunito&family=Pacifico&display=swap"
+            rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <% } %>  
+</head>
+<body class="d-flex flex-column vh-100">  
+    <%- body -%>
+    
+    <%- include('../partials/footer')  %>
+
+    <script>
+      (function () {
+          'use strict'
+
+
+          const forms = document.querySelectorAll('.ValidForm')
+
+
+          Array.prototype.slice.call(forms)
+              .forEach(function (form) {
+                  form.addEventListener('submit', function (event) {
+                      if (!form.checkValidity()) {
+                          event.preventDefault()
+                          event.stopPropagation()
+                      }
+
+                      form.classList.add('was-validated')
+                  }, false)
+              })
+      })()
+  </script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+    ></script>
+</body>
+</html>
