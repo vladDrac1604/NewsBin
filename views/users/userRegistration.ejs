@@ -1,0 +1,86 @@
+<% layout('boilerplate/commonContent') %>
+    <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark  sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand mx-2" style="color: cyan;" href="/"><i class="fa fa-globe"></i> NewsBin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/articles/postArticle">Post</a>
+                   
+                    <a class="nav-link " href="/articles/showAll/1">Articles</a>
+                </div>
+                <div class="navbar-nav" style="margin-left: auto;padding-right: 13px;">
+                    <a class="nav-link" href="/logIn">Log In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div   class="container py-1">
+        
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-md-6 col-12 py-2 ">
+                <% if(registrationError.length>0) {%>
+                    <div class="alert alert-danger mt-1 alert-dismissible fade show text-center" role="alert">
+                        <strong>ERROR : </strong>
+                        <%= registrationError %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% } %>
+                    <div class="card" style="border-bottom: 1px solid rgb(110, 109, 109);border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;">
+                        <img src="https://images.unsplash.com/photo-1536248967198-18530a4cb3bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"  class="card-img-top" height="300">
+                        <div class="card-body" style="padding: 13px 10px 10px 10px;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;">
+                    
+                <form enctype="multipart/form-data" class="row ValidForm"  novalidate method="POST" action="/userRegistration" autocomplete="off">
+                    <div class="col-6 form-floating mb-1">
+                      
+                      <input type="text" maxlength="15" placeholder="enter your first name" name="firstName" class="form-control" id="fname" required>
+                      <label for="fname" class="form-label px-4">First Name</label>
+                    </div>
+                    <div class=" col-6 form-floating mb-1">
+                      
+                      <input type="text" maxlength="15" placeholder="enter your last name" name="lastName" class="form-control" id="lname" required>
+                      <label for="lname" class="form-label px-4">Last Name</label>
+                    </div>
+                    
+                    <div class="mb-1 col-6 form-floating">
+                      
+                      <input type="text" class="form-control" maxlength="20" name="username" id="username" placeholder="create a username" required>
+                      <label for="username" class="form-label px-4">Username</label>
+                    </div>
+                    <div class="mb-1 col-6 form-floating">
+                      
+                      <input  type="password" name="password" maxlength="12" placeholder="create a password" class="form-control" id="pass" required >
+                      <label for="pass" class="form-label px-4">Password</label>
+                    </div>
+                    <div class="mb-1 col-6 form-floating">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                        <label for="email" class="form-label px-4">Email address</label>
+                    </div>
+                    <div class="mb-1 col-6 form-floating">
+                        <textarea  resize="none" class="form-control"  maxlength="200" name="description" required placeholder="Leave a comment here" id="desc"></textarea>
+                        <label for="desc" class="form-label px-4" >About You</label>
+                      </div>
+
+                      <div class="input-group mb-2">
+                        <input type="file" style="box-shadow: 0px 2px 2px rgb(183, 180, 180);"  class="form-control" name="profilepic" id="dp" required>
+                        <label class="input-group-text" style="box-shadow: 3px 2px 2px rgb(183, 180, 180);" for="dp">Profile Picture</label>
+                      </div>
+                      <div>
+                          <button class="btn btn-success py-2" style="width:100%;font-family: 'Nunito', sans-serif;">REGISTER</button>
+                      </div>
+                    
+                  </form>
+                  </div>
+               
+           </div>
+        </div>
+        <div class="col-3"></div>
+         
+    </div>
+    </div>

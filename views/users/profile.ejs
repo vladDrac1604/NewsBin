@@ -1,0 +1,117 @@
+<% layout('boilerplate/commonContent') %>
+    <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand mx-2" href="/"> <i class="fa fa-globe"></i> NewsBin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/articles/postArticle">Post</a>
+                   
+                    <a class="nav-link" href="/articles/showAll/1">Articles</a>
+                </div>
+                <div class="navbar-nav" style="margin-left: auto;padding-right: 13px;">
+                    <a class="nav-link" href="/logOut">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1">
+            </div>
+            <div class="col-md-5 col-sm-12 col-12">
+                <div class="card" style="background-color:#e5eff7">
+                    <img src="<%= user.Profilepic %> " class="card-img-top img-fluid" style="height:400px" alt="...">
+                    <div class="card-body" style="background-color:#e5eff7">
+                      <h4 class="card-title"><%= user.Name %> </h4>
+                      <p class="card-text"><%= user.Description %> </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li style="background-color: #e5eff7;font-family:'Nunito', sans-serif ;" 
+                      class="list-group-item"> Email address : <span  class="badge bg-success px-2 py-2"><%= user.Email %></span>
+                      </li>
+                    </ul>
+                    <div class="card-footer">
+                        <a class="btn btn-primary px-3 btn-sm" style="font-family:'Nunito', sans-serif;" href="/updateUser/<%= user._id %>">Update &#x270E;</a>          
+                        <form method="post" style="flex:1 1 50%;display: inline-block;" action="/deleteUser/<%= user._id %>">
+                        <button class="btn btn-sm px-3 btn-danger " style="font-family:'Nunito', sans-serif;">Delete &#128465;</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="parent" class="col-md-5 col-sm-12 col-12 py-1">
+                <% if(posts.length==0) { %>
+                    <h2 class="text-center text-light" style="font-family: 'Nunito', sans-serif;
+                    text-shadow: 0.5px 0.5px 1px rgb(167, 163, 163);">No articles posted yet.</h2>
+                <% } else { %>  
+                   <ul id="ReviewDisplay" class="list-group list-group-flush">
+                   <div id="postsDisplay"></div>
+                    <nav class="mt-1">
+                        <ul class="pagination" id="pagination"></ul>
+                    </nav>
+                 <% } %> 
+                </ul>
+            </div>
+
+        </div>
+    </div>
+<script>
+        const postsData = <%- JSON.stringify(posts) %>;
+        let currentPage = 1;
+        const itemsPerPage = 2;
+        const totalPages = Math.ceil(postsData.length / itemsPerPage);
+
+        function renderPosts() {
+          const start = (currentPage - 1) * itemsPerPage;
+          const end = start + itemsPerPage;
+          const paginatedItems = postsData.slice(start, end);
+          let html = "";
+          paginatedItems.forEach(post => {
+             html += `<div class="mb-1 card text-white bg-primary" style="width: 100%">
+        <div class="card-header">Posted on ${post.uploadDate} </div>
+        <div class="card-body bg-primary">
+            <h4 class="card-title">${post.title}</h4>
+            <p class="card-text" style="font-size:16px;font-family: 'Nunito', sans-serif;">${post.content.slice(0, 175) + (post.content.length > 175 ? '...' : '')}</p>
+            <a class="btn btn-danger btn-sm px-3" style="font-family: 'Nunito', sans-serif;" href="/articles/${post._id}">Read More</a>
+        </div>
+        </div>`;
+    });
+    document.getElementById("postsDisplay").innerHTML = html;
+  }
+
+  function renderPagination() {
+    let html = "";
+    html += `
+      <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+        <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>
+      </li>
+    `;
+    for (let i = 1; i <= totalPages; i++) {
+      html += `
+        <li class="page-item ${currentPage === i ? 'active' : ''}">
+          <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+        </li>`;
+    }
+    html += `
+      <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+        <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>
+      </li>
+    `;
+    document.getElementById("pagination").innerHTML = html;
+  }
+
+  function changePage(page) {
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    renderPosts();
+    renderPagination();
+  }
+
+  // Initial render
+  renderPosts();
+  renderPagination();
+</script>
